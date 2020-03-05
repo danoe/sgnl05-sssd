@@ -87,7 +87,8 @@ class sssd (
     '--disablesssd',
     '--disablesssdauth',
   ],
-  String $authselect_profile='sssd',
+  String $authselect_mkhomedir = 'with-mkhomedir',
+  String $authselect_profile = 'sssd',
 ) {
 
   # Warn on unsupported platforms
@@ -197,8 +198,7 @@ class sssd (
             concat(
               [$authselect_profile],
               $mkhomedir ? {
-                true  => $enable_mkhomedir_flags,
-                false => $disable_mkhomedir_flags,
+                true  => $authselect_mkhomedir,
               }
             ),
             ' ',
